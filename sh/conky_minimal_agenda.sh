@@ -5,13 +5,14 @@
 # Emacs command that displays the org-mode agenda for the current week.
 emacs -batch -l ~/.emacs.d/init.el -eval '(org-batch-agenda "a" 
                                            org-agenda-span (quote week)
+                                           org-agenda-use-time-grid nil
                                            org-agenda-hide-tags-regexp "*\\|")' |
     # Limits the output to 50 lines.
     sed -n '2,51p'                                                              |
     # Substitutes '$' to 'S' to avoid conky interpreting non-variables.
     sed 's/\$/S/'                                                               |
     # Takes away agenda header.
-    tail -n +2                                                                  |
+    tail -n +1                                                                  |
     # Takes away the day of the week name, the month and the year and keeps only the day number.
     # e.g.: "Sunday     12 January 2020" -> "12"
     sed -E "s/^((M|T|W|F|S)[ a-zA-Z]*) *([0-9]*).*/\3/"                         |
