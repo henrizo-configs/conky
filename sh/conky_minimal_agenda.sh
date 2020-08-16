@@ -3,7 +3,7 @@
 # Takes the emacs' org-mode agenda output and keeps only the essential information.
 
 # Emacs command that displays the org-mode agenda for the current week.
-emacs -batch -l ~/.emacs.d/init.el -eval '(org-batch-agenda "a" 
+emacs -batch -l ~/.emacs.d/init.el -eval '(org-batch-agenda "a"
                                            org-agenda-span (quote week)
                                            org-agenda-use-time-grid nil
                                            org-agenda-hide-tags-regexp "*\\|")' |
@@ -22,6 +22,8 @@ emacs -batch -l ~/.emacs.d/init.el -eval '(org-batch-agenda "a"
     sed -E "s/my_agenda: *//"                                                   |
     # Excludes the "Scheduled:" information text.
     sed -E "s/Scheduled: *//"                                                   |
+    ## Excludes completed events
+    # sed -E "/.*(WENT|DONE|MISSED).*/d"                                          |
     # Matches the task scheduled time and makes it cleaner.
     # e.g.: "20:00...... A very cool event scheduled for 20:00" becomes
     #       "20:00 - A very cool event scheduled for 20:00" becomes
@@ -33,4 +35,3 @@ emacs -batch -l ~/.emacs.d/init.el -eval '(org-batch-agenda "a"
     sed -E "s/($(date +"%d"))/\${color2}\1\${color}/"                           |
     # Changes line colour according to the task state.
     sed -E 's/(WENT|MISSED)/\${color1}&\${color}/'
-
