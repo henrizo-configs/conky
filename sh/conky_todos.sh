@@ -11,5 +11,5 @@ cat ~/Dropbox/my_org/todos/todos_main.org                      |
     sed -E 's/\:[a-zA-Z0-9_:áéíóúâêîôûãẽĩõũöäüç ]*\://'        |
     # Changes line colour according to the task state.
     sed 's/TODO/\${color2}[ ]\${color}/;s/DONE/\${color1}[X]/' |
-    # Deletes the asterisks in the tasks.
-    sed -E 's/\*. //'
+    # Deletes all asterisks and the following space in the tasks.
+    sed -E 's/\** //'
